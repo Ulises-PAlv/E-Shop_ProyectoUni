@@ -1,0 +1,61 @@
+#color{
+    background-color: blueviolet; !important
+}
+.btn-buscar{
+    background-color: blueviolet; 
+    border: white;
+    color: white; !important
+}
+.btn-buscar:hover{
+    background-color: #461C50;!important
+    
+}
+#menu{
+    background-color: #461C50;!important
+}
+#mocos{
+    color: white;!important
+}
+#categoria{
+    color: white;
+    background-color: blueviolet;
+   padding: 10px;
+    padding-left: 40px;
+}
+body{
+    background-color: blueviolet;
+    
+}
+
+footer{
+    background-color: #461C50;
+    color: white;
+    padding: 10px;
+    padding-top: 30px; 
+}
+
+a{
+    text-decoration: none;
+}
+
+a:link {
+  color: blue;
+}
+
+footer a:visited {
+  color: white;
+}
+
+
+
+a:active {
+  color: antiquewhite;
+}
+
+#contacto{
+    color: white;
+    margin: 10px;
+}
+form{
+    color: white;
+}
