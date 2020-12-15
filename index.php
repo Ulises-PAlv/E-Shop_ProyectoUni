@@ -7,6 +7,7 @@
     <script src="https://kit.fontawesome.com/9d667bb4f1.js" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    
     <link rel="stylesheet" href="estilos/estilos.css">
 
 </head>
@@ -59,6 +60,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="contactanos.php">Contactanos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="admi.php">Admin</a>
                 </li>
             </ul>
         </div>
