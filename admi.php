@@ -1,17 +1,74 @@
+<?php
+
+  session_start();
+
+  if( $_SESSION["cuenta"]!="AdminEmpresaurio" && $_SESSION["password"]!="c38aeb85264b3e8382da5fc307f5d00b2bee146c"){
+
+      session_destroy();
+
+      echo '<meta http-equiv="refresh" content="0;url=index.php">';
+
+  }
+
+
+
+$servidor='localhost';
+$cuenta='root';
+$password='';
+$bd='productosempresaurios';
+
+$conexion = new mysqli($servidor,$cuenta,$password,$bd);
+
+$sql='select * from playstation';
+$resultado=$conexion->query($sql);
+$sql2='select * from xbox';
+$resultado2=$conexion->query($sql2);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>Administrador</title>
     <script src="https://kit.fontawesome.com/9d667bb4f1.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="stylesheet" href="estilos/estilos.css">
     <link rel="stylesheet" href="https://getbootstrap.com/dist/css/bootstrap.min.css">
-
+    <link rel="shortcut icon" type="image/png" href="imagenes/logo1.png">
+    <script>
+        function funcionEliminar(str) {
+           
+            var xhttp;
+            xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("Eliminar").innerHTML = this.responseText;
+                }
+            };
+            xhttp.open("GET", "gethint.php?q=" + str, true);
+            
+            xhttp.send();
+            alert("Se ha eliminado el juego!!");
+        }
+        function funcionEliminarPlay(str) {
+           
+            var xhttp;
+            xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("Eliminar").innerHTML = this.responseText;
+                }
+            };
+            xhttp.open("GET", "gethinit2.php?q=" + str, true);
+            xhttp.send();
+            alert("Se ha eliminado el juego!!");
+        }
+    </script>
 </head>
 
 <body>
+      
     <nav class="navbar navbar-expand-lg navbar-dark " id="color">
         <div class="container-fluid">
             <a class="navbar-brand">
@@ -22,16 +79,27 @@
                 <input class="form-control me-4" type="search" placeholder="Buscar" aria-label="Search">
                 <button class="btn btn-outline-success btn-buscar" type="submit">Buscar</button>
             </form>
-            <a class="navbar-brand" href="#carrito">
-                <i class="fas fa-cart-arrow-down"></i>
-                Añadir al carrito
-            </a>
-            <a class="navbar-brand" href="#Sesion">
-                <i class="fas fa-house-user"></i>
-                Inicia sesión
-
-            </a>
-            <a class="navbar-brand" href="#Registrar">
+            <a class="navbar-brand" href="./carrito.component.php">
+<i class="fas fa-cart-arrow-down"></i>
+Carrito <sup><span class="badge badge-pill badge-success" id="cantidadCar">0</span></sup>
+</a>
+            <?php
+            $str="";
+            if(isset($_SESSION["id"])){	
+                $str= '<a class="navbar-brand" href="cerrar sesion.php">';
+                $str .= '<i class="fas fa-house-user"></i>';
+                $str.='Cerrar session';
+                $str.='</a>';
+            }else{
+                $str= '<a class="navbar-brand" href="Login.php">';
+                $str.= '<i class="fas fa-house-user"></i>';
+                $str.='Inicia sesión';
+                $str.='</a>';
+            }
+            echo $str;
+            ?>
+          
+            <a class="navbar-brand" href="registro.php">
                 <i class="fas fa-gamepad"></i>
                 Registro
             </a>
@@ -46,7 +114,7 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown mocos">
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link" href="index.php">Juegos más populares</a>
+                    <a class="nav-link" href="#">Juegos más populares</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="xbox.php">X-box <span class="sr-only">(current)</span></a>
@@ -61,24 +129,109 @@
                     <a class="nav-link" href="contactanos.php">Contactanos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="admi.php">Admin</a>
+                    <a class="nav-link" href="pregfre.php">Pregutas Frecuentes</a>
                 </li>
+                <?php
+                $cad="";
+                if(isset($_SESSION["id"])){
+                    if( $_SESSION["cuenta"]=="AdminEmpresaurio" && $_SESSION["password"]=="c38aeb85264b3e8382da5fc307f5d00b2bee146c"){
+                        $cad='<li class="nav-item">';
+                        $cad.='<a class="nav-link" href="admi.php">Admin</a>';
+                        $cad.= '</li>';
+                    }
+                    echo $cad;
+                }
+                
+                ?>
+            
             </ul>
+            <ul class="nav navbar-nav flex-row justify-content-between ml-auto" <?php if(isset($_SESSION["logueado"])){echo "style='width:200px;'";} ?> >
+               
+               <li>
+              <a class="navbar-brand">
+              Di-no a los precios altos
+              </a>
+              </li>
+                    
+              </ul>
         </div>
     </nav>
+    <h1 style="color:white; padding: 10px;">Bienvenido a la página de administrador</h1>
+    <div class="container">
    <div class="accordion" id="accordionExample">
   <div class="card">
     <div class="card-header" id="headingOne">
       <h2 class="mb-0">
         <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          Collapsible Group Item #1
+          Productos de Play Station en existencia
         </button>
       </h2>
     </div>
 
     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
       <div class="card-body">
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+            <?php
+        $numPro=0;
+    ?>
+    <script>
+        var array = [];
+    </script>
+    <div>
+        <br>
+        <div class="container-fluid">
+            <div class="row">
+                <?php
+                    while($fila=$resultado->fetch_assoc()){
+                    $imagen=$fila['imagen'];
+                    $producto=$fila['producto'];
+                    $precio=$fila['precio'];
+                    $descripcion=$fila['descripcion'];
+                    $id=$fila['id'];
+                ?>
+                <script>
+                    array.push("<?php echo $productosempresaurios?>");
+                </script>
+                <div class="col-2">
+                    <div class="card " style="width: 10rem; height:420px;">
+                        <img src="imagenes/<?php echo $imagen ?>" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $producto ?></h5>
+                            <p class="card-text"></p>
+                            <a href="editarPlayStation.php" class="btn btn-primary">Editar</a><br>
+                            <br><a href="admi.php" onclick="funcionEliminarPlay(<?php echo $id; ?>)" class="btn btn-primary">Eliminar</a>
+                        </div>
+                    </div>
+                </div>
+                <?php
+                    $numPro=$numPro+1;
+                        if($numPro%6==0){
+                            echo '</div><br><br><div class="row">';
+                        }
+                    }
+                ?>
+                <div class="col-2">
+                    <div class="card " style="width: 10rem; height:400px;">
+                        <img src="imagenes/cargar.png" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Nuevo juego</h5>
+                            <p class="card-text"></p>
+                            <a href="agregarPlay.php" class="btn btn-primary">Agregar</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="card " style="width: 10rem; height:400px;">
+                        <img src="imagenes/grafica.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Gráfica de Precios</h5>
+                            <p class="card-text"></p>
+                            <a href="gr%C3%A1ficas.php" class="btn btn-primary">Ver</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
       </div>
     </div>
   </div>
@@ -86,31 +239,80 @@
     <div class="card-header" id="headingTwo">
       <h2 class="mb-0">
         <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          Collapsible Group Item #2
+          Productos de Xbox en existencia
         </button>
       </h2>
     </div>
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
       <div class="card-body">
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+     <?php
+        $numPro=0;
+    ?>
+    <script>
+        var array = [];
+    </script>
+    <div>
+        <br>
+        <div class="container-fluid">
+            <div class="row">
+                <?php
+                    while($fila2=$resultado2->fetch_assoc()){
+                    $imagen=$fila2['imagen'];
+                    $producto=$fila2['producto'];
+                    $precio=$fila2['precio'];
+                    $descripcion=$fila2['descripcion'];
+                    $id=$fila2['id'];
+                ?>
+                <script>
+                    array.push("<?php echo $productosempresaurios?>");
+                </script>
+                <div class="col-2">
+                    <div class="card " style="width: 10rem; height:430px;">
+                        <img src="imagenes/<?php echo $imagen ?>" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $producto ?></h5>
+                            <p class="card-text"></p>
+                            <a href="editarXbox.php" class="btn btn-primary">Editar</a><br>
+                            <br><a href="admi.php" onclick="funcionEliminar(<?php echo $id; ?>)" class="btn btn-primary">Eliminar</a>
+                        </div>
+                    </div>
+                </div>
+                <?php
+                    $numPro=$numPro+1;
+                        if($numPro%6==0){
+                            echo '</div><br><br><div class="row">';
+                        }
+                    }
+                ?>
+                <div class="col-2">
+                    <div class="card " style="width: 10rem; height:400px;">
+                        <img src="imagenes/cargar.png" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Nuevo juego</h5>
+                            <p class="card-text"></p>
+                            <a href="agregarXbox.php" class="btn btn-primary">Agregar</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="card " style="width: 10rem; height:400px;">
+                        <img src="imagenes/grafica.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Gráfica de Precios</h5>
+                            <p class="card-text"></p>
+                            <a href="gr%C3%A1ficas2.php" class="btn btn-primary">Ver</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
       </div>
     </div>
   </div>
-  <div class="card">
-    <div class="card-header" id="headingThree">
-      <h2 class="mb-0">
-        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-          Collapsible Group Item #3
-        </button>
-      </h2>
-    </div>
-    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-      <div class="card-body">
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-      </div>
-    </div>
   </div>
-</div>
+</div><br><br>
+   <h4 id="Eliminar"></h4>
     <!--<form action="subearchivo.php" method="post" enctype="multipart/form-data">
         <b>Campo de tipo texto:</b>
         <br>
@@ -203,3 +405,4 @@
 
 
 </html>
+

@@ -8,7 +8,7 @@
 }
 .btn-buscar:hover{
     background-color: #461C50;!important
-    
+   
 }
 #menu{
     background-color: #461C50;!important
@@ -16,11 +16,17 @@
 #mocos{
     color: white;!important
 }
+#guapo{
+    background-color: white;!important
+}
 #categoria{
     color: white;
     background-color: blueviolet;
    padding: 10px;
     padding-left: 40px;
+}
+#select-bonito{
+    color: black; !important
 }
 body{
     background-color: blueviolet;
@@ -58,4 +64,268 @@ a:active {
 }
 form{
     color: white;
+}
+
+.form-row {
+  display: flex;
+  justify-content: flex-end;
+  padding: .5em;
+}
+.form-row > label {
+  padding: .5em 1em .5em 0;
+  flex: 1;
+}
+.form-row > input {
+  flex: 2;
+}
+.form-row > input,
+.form-row > button {
+  padding: .5em;
+}
+.form-row > button {
+background: gray;
+color: white;
+border: 0;
+}
+#login{
+
+ background-color:  #461C50;
+
+ color: wheat;
+
+  margin: 20px;
+
+  padding: 30px;
+
+  border: 1px solid white;
+
+  border-collapse: collapse;
+
+  text-align: center;
+
+  font-size: 30px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  align-items: center;
+
+}
+
+
+
+#login input[type="text"] {
+
+  width: 400px;
+
+}
+
+
+
+#registro{
+
+  background-color:  #461C50;
+
+ color: wheat;
+
+  margin: 20px;
+
+  padding: 10px;
+
+  border: 1px solid white;
+
+  border-collapse: collapse;
+
+  text-align: center;
+
+  font-size: 18px;
+
+
+
+}
+
+
+
+.recuerda{
+
+  text-align: center;
+
+  font-size: 14px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  align-items: center;
+
+}
+
+
+
+
+
+  
+
+  .card2{
+
+  height: auto;
+
+  margin-top: auto;
+
+  margin-bottom: auto;
+
+  width: 500px;
+
+  background-color: rgba(0,0,0,0.5) !important;
+
+  }
+
+  
+
+  .social_icon span{
+
+  font-size: 60px;
+
+  margin-left: 10px;
+
+  color: blueviolet;
+
+  }
+
+  
+
+ 
+
+  
+
+  .card-header h3{
+
+  color: white;
+
+  }
+
+  
+
+  .social_icon{
+
+  position: absolute;
+
+  right: 20px;
+
+  top: -45px;
+
+  }
+
+  
+
+  .input-group-prepend span{
+
+  width: 50px;
+
+  background-color: blueviolet;
+
+  color: black;
+
+  border:0 !important;
+
+  }
+
+  
+
+  input:focus{
+
+  outline: 0 0 0 0  !important;
+
+  box-shadow: 0 0 0 0 !important;
+
+  
+
+  }
+
+  
+
+  .remember{
+
+  color: white;
+
+  }
+
+  
+
+  .remember input
+
+  {
+
+  width: 20px;
+
+  height: 20px;
+
+  margin-left: 15px;
+
+  margin-right: 5px;
+
+  }
+
+  
+
+  .login_btn{
+
+  color: black;
+
+  background-color: blueviolet;
+
+  width: 100px;
+
+  }
+
+  
+
+  .login_btn:hover{
+
+  color: black;
+
+  background-color: white;
+
+  }
+
+  
+
+  .links{
+
+  color: white;
+
+  }
+
+  .links2{
+
+    color: rgb(126, 126, 245);
+
+}
+img:hover {
+    transform: scale(1.05);
+    filter: grayscale(.4);
+}
+
+#suscripcion{
+  background-color: aliceblue;
+  width: 400px;
+  margin: auto;
+  margin-top: 20px;
+  margin-block-end: 20px;
+  padding: 30px;
+  text-align: center;
+  color: blueviolet;
+}
+
+#suscripcion form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
 }

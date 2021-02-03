@@ -1,3 +1,4 @@
+
 <?php
 
 $servidor='localhost';
@@ -16,35 +17,50 @@ $resultado=$conexion->query($sql);
 
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>Juegos de playstation</title>
     <script src="https://kit.fontawesome.com/9d667bb4f1.js" crossorigin="anonymous"></script>
-
+    <link rel="shortcut icon" type="image/png" href="imagenes/logo1.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="stylesheet" href="estilos/estilos.css">
 
 </head>
 
 <body>
+           <?php
+	session_start();
+	?>
     <nav class="navbar navbar-expand-lg navbar-dark " id="color">
         <div class="container-fluid">
             <a class="navbar-brand">
                 <img src="imagenes/logo1.png" alt="" width="50" height="50" class="d-inline-block align-top">
                 Empresaurios
             </a>
+            
             <form class="d-flex col-5">
                 <input class="form-control me-4" type="search" placeholder="Buscar" aria-label="Search">
                 <button class="btn btn-outline-success btn-buscar" type="submit">Buscar</button>
             </form>
-            <a class="navbar-brand" href="#carrito">
-                <i class="fas fa-cart-arrow-down"></i>
-                Añadir al carrito
-            </a>
-            <a class="navbar-brand" href="#Sesion">
-                <i class="fas fa-house-user"></i>
-                Inicia sesión
-
-            </a>
-            <a class="navbar-brand" href="#Registrar">
+            <a class="navbar-brand" href="carrito/carrito.component.php">
+<i class="fas fa-cart-arrow-down"></i>
+Carrito <sup><span class="badge badge-pill badge-success" id="cantidadCar">0</span></sup>
+</a>
+            <?php
+            $str="";
+            if(isset($_SESSION["id"])){	
+                $str= '<a class="navbar-brand" href="cerrar sesion.php">';
+                $str .= '<i class="fas fa-house-user"></i>';
+                $str.='Cerrar session';
+                $str.='</a>';
+            }else{
+                $str= '<a class="navbar-brand" href="Login.php">';
+                $str.= '<i class="fas fa-house-user"></i>';
+                $str.='Inicia sesión';
+                $str.='</a>';
+            }
+            echo $str;
+            ?>
+          
+            <a class="navbar-brand" href="registro.php">
                 <i class="fas fa-gamepad"></i>
                 Registro
             </a>
@@ -59,45 +75,46 @@ $resultado=$conexion->query($sql);
         <div class="collapse navbar-collapse" id="navbarNavDropdown mocos">
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link" href="index.php">Juegos más populares </a>
+                    <a class="nav-link" href="index.php">Juegos más populares</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="xbox.php">X-box<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="xbox.php">X-box <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="playstation.php">Play-Station</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        X-box
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
+                <li class="nav-item">
+                    <a class="nav-link" href="acercade.php">Acerca de </a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Play-Station
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
+                <li class="nav-item">
+                    <a class="nav-link" href="contactanos.php">Contactanos</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Nintendo
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
+                <li class="nav-item">
+                    <a class="nav-link" href="pregfre.php">Pregutas Frecuentes</a>
                 </li>
+                <?php
+                $cad="";
+                if(isset($_SESSION["id"])){
+                    if( $_SESSION["cuenta"]=="AdminEmpresaurio" && $_SESSION["password"]=="c38aeb85264b3e8382da5fc307f5d00b2bee146c"){
+                        $cad='<li class="nav-item">';
+                        $cad.='<a class="nav-link" href="admi.php">Admin</a>';
+                        $cad.= '</li>';
+                    }
+                    echo $cad;
+                }
+                
+                ?>
+            
             </ul>
+            <ul class="nav navbar-nav flex-row justify-content-between ml-auto" <?php if(isset($_SESSION["logueado"])){echo "style='width:200px;'";} ?> >
+               
+               <li>
+              <a class="navbar-brand">
+              Di-no a los precios altos
+              </a>
+              </li>
+                    
+              </ul>
         </div>
     </nav>
     <?php
@@ -117,6 +134,11 @@ $resultado=$conexion->query($sql);
                     $producto=$fila['producto'];
                     $precio=$fila['precio'];
                     $descripcion=$fila['descripcion'];
+                        $id = $fila['id'];
+$existencias = $fila['Existencias'];
+// $myJSON = json_encode($myJSON);
+$prodStr = "'". $producto."'";
+$imgStr = "'". $imagen."'";
                 ?>
                 <script>
                     array.push("<?php echo $productosempresaurios?>");
@@ -127,7 +149,13 @@ $resultado=$conexion->query($sql);
                         <div class="card-body">
                             <h5 class="card-title"><?php echo $producto ?></h5>
                             <p class="card-text"><?php echo $descripcion ?></p>
-                            <a href="#" class="btn btn-primary">$<?php echo $precio ?></a>
+                            <?php
+                            if($existencias>0)
+                            echo '<a href="#" class="btn btn-primary" onclick="crearObJuego('. $prodStr.','.$imgStr.','.$precio.','.$id.','.$existencias.')">$'.$precio.
+                            '</a>';
+                            else
+                            echo '<a class="btn btn-danger" styles="color:red;">Sin existencias</a>';
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -196,12 +224,12 @@ $resultado=$conexion->query($sql);
 
                     </ul>
                 </div>
-                <div class="col-2.2">
+                 <div class="col-2.2">
                     <ul id="menusec" style="list-style: none;"> <b>Siguenos</b><br>
-                        <a class="btn btn-primary" href="#" role="button"><i class="fab fa-facebook-square"></i></a>
-                        <a class="btn btn-primary" href="#" role="button"><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-primary" href="#" role="button"><i class="fab fa-instagram"></i></a>
-                        <a class="btn btn-primary" href="#" role="button"><i class="fab fa-discord"></i></a>
+                        <a class="btn btn-primary" href="https://www.facebook.com/EmpresauriosGames/?ref=page_internal" role="button"><i class="fab fa-facebook-square"></i></a>
+                        
+                        <a class="btn btn-primary" href="https://www.instagram.com/empresaurios_games/" role="button"><i class="fab fa-instagram"></i></a>
+                        
                     </ul>
                 </div>
                 <div class="col">
@@ -215,7 +243,14 @@ $resultado=$conexion->query($sql);
             </div>
         </div>
     </footer>
+    <!-- Sweet Alert --><script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <!-- Carrito dependencias --> <script src="carrito/scripts/Juego.class.js"></script> 
+    <script src="carrito/scripts/LS.class.js"></script> 
+    <script src="carrito/scripts/agregarProducto.js" type="text/javascript"></script>
+
+
 </body>
+ 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

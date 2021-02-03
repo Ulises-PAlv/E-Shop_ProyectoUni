@@ -1,0 +1,38 @@
+/*
+?? ESTILOS DEL CARRITO
+*/
+
+.badge {
+    width: 25px !important;
+    height: 16px;
+    text-align: center;
+}
+
+.hoverCarrito {
+    transition: all .3s ease-in-out;
+}
+
+.hoverCarrito:hover {
+    transform: scale(1.05);
+    filter: grayscale(.4);
+}
+
+hr {
+    border-top: 3px solid purple;
+    width: 95%;
+    margin-bottom: 10px;
+    margin-top: 2px;
+    margin-left: 0;
+}
+
+span {
+    font-weight: bold;
+    color: purple;
+}
+
+/* ?? Tarjeta credito CSS */
+.credit-card-div  span { padding-top:10px; }
+.credit-card-div img { padding-top:30px; }
+.credit-card-div .small-font { font-size:9px; }
+.credit-card-div .pad-adjust { padding-top:10px; }
+.img-card { width: 60px; }
